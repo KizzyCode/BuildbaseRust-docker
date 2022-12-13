@@ -1,0 +1,7 @@
+services:
+  buildbase-rust-alpine:
+    container_name: buildbase-rust-alpine
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: /bin/sh -c "while true; do sleep 1; done"

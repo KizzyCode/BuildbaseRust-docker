@@ -1,0 +1,4 @@
+[net]
+# Use the git binary to update the package repositories
+# This is needed because the builtin git implementation uses too much memory in some circumstances
+git-fetch-with-cli = true
