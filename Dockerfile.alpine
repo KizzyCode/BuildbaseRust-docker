@@ -1,8 +1,10 @@
-FROM alpine:edge AS buildenv
+FROM alpine:edge
 
 # Install build packages
 RUN apk add --no-cache build-base cargo git rust
 
 # Copy default cargo config and search for `cargo` to update the `crates.io index`
 COPY files/config.toml /.cargo/config.toml
-RUN cargo search cargo
+RUN cargo new /root/tmp \
+    && cargo add --manifest-path /root/tmp/Cargo.toml libc \
+    && rm -rf /root/tmp

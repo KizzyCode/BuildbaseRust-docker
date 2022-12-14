@@ -1,3 +1,3 @@
-# kizzycode/BuildbaseRustAlpine
+# kizzycode/BuildbaseRust
 
-A tiny container based on `alpine:edge` which can be used as starting `buildenv` to build rust applications.
+A set of tiny containers which can be used as starting `buildenv` to build rust applications.

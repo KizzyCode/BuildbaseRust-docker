@@ -7,8 +7,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  DOCKERFILE: Dockerfile
-  IMAGE_TAG: kizzycode/buildbase-rust-alpine:latest
+  DOCKERFILE: Dockerfile.alpine
+  IMAGE_TAG: kizzycode/buildbase-rust:alpine
 
 jobs:
   build-and-push-image:

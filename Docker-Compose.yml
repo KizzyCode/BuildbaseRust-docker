@@ -3,5 +3,12 @@ services:
     container_name: buildbase-rust-alpine
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.alpine
+    command: /bin/sh -c "while true; do sleep 1; done"
+  
+  buildbase-rust-tumbleweed:
+    container_name: buildbase-rust-tumbleweed
+    build:
+      context: ./
+      dockerfile: Dockerfile.tumbleweed
     command: /bin/sh -c "while true; do sleep 1; done"
