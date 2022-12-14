@@ -8,5 +8,5 @@ RUN zypper install --no-confirm --type=pattern devel_basis \
 # Copy default cargo config and search for `cargo` to update the `crates.io index`
 COPY files/config.toml /.cargo/config.toml
 RUN cargo new /root/tmp \
-    && cargo add --manifest-path /root/tmp/Cargo.toml libc \
+    && cargo add --manifest-path /root/tmp/Cargo.toml syn \
     && rm -rf /root/tmp
