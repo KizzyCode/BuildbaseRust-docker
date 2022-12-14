@@ -3,7 +3,7 @@ FROM opensuse/tumbleweed:latest
 
 # Install build packages
 RUN zypper install --no-confirm --type=pattern devel_basis \
-    && zypper install --no-confirm cargo git rust
+    && zypper install --no-confirm cargo git libopenssl-devel rust
 
 # Copy default cargo config and search for `cargo` to update the `crates.io index`
 COPY files/config.toml /.cargo/config.toml
