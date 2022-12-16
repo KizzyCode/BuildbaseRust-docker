@@ -3,8 +3,6 @@ FROM alpine:edge
 # Install build packages
 RUN apk add --no-cache build-base cargo git rust
 
-# Copy default cargo config and search for `cargo` to update the `crates.io index`
+# Copy default cargo config and perform a best-effort cargo-search to update the crates.io-index
 COPY files/config.toml /.cargo/config.toml
-RUN cargo new /root/tmp \
-    && cargo add --manifest-path /root/tmp/Cargo.toml syn \
-    && rm -rf /root/tmp
+RUN cargo search --limit 0 || true
