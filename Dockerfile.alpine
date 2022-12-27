@@ -5,7 +5,13 @@ RUN apk add --no-cache build-base cargo git
 
 # Copy default cargo config and perform a best-effort cargo-search to update the crates.io-index
 COPY files/config.toml /.cargo/config.toml
-RUN cargo new /root/temporary \
+
+# Update a temp crate using a tempfs for the cargo directory
+RUN mkdir /root/.cargo-persistent
+RUN --mount=type=tmpfs,target=/root/.cargo \
+    cargo new /root/temporary \
     && cargo add --manifest-path=/root/temporary/Cargo.toml syn \
     && cargo update --manifest-path=/root/temporary/Cargo.toml \
+    && cp -r /root/.cargo/* /root/.cargo-persistent/ \
     && rm -rf /root/temporary
+RUN mv /root/.cargo-persistent /root/.cargo
