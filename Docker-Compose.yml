@@ -12,3 +12,10 @@ services:
       context: ./
       dockerfile: Dockerfile.tumbleweed
     command: /bin/sh -c "while true; do sleep 1; done"
+  
+  buildbase-rust-ubuntu:
+    container_name: buildbase-rust-ubuntu
+    build:
+      context: ./
+      dockerfile: Dockerfile.ubuntu
+    command: /bin/sh -c "while true; do sleep 1; done"

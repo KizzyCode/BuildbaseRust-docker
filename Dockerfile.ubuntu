@@ -1,0 +1,20 @@
+FROM ubuntu:latest
+
+# Install build packages
+ENV APT_PACKAGES build-essential curl git
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update \
+    && apt-get upgrade --yes \
+    && apt-get install --yes ${APT_PACKAGES} \
+    && apt-get autoremove --yes \
+    && apt-get clean
+
+# Install cargo
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# Copy default cargo config and perform a best-effort cargo-search to update the crates.io-index
+COPY files/config.toml /.cargo/config.toml
+RUN /root/.cargo/bin/cargo new /root/temporary \
+    && /root/.cargo/bin/cargo add --manifest-path=/root/temporary/Cargo.toml syn \
+    && /root/.cargo/bin/cargo update --manifest-path=/root/temporary/Cargo.toml \
+    && rm -rf /root/temporary
