@@ -5,4 +5,7 @@ RUN apk add --no-cache build-base cargo git rust
 
 # Copy default cargo config and perform a best-effort cargo-search to update the crates.io-index
 COPY files/config.toml /.cargo/config.toml
-RUN cargo search --limit 0 || true
+RUN cargo new /root/temporary \
+    && cargo add --manifest-path=/root/temporary/Cargo.toml syn \
+    && cargo update --manifest-path=/root/temporary/Cargo.toml \
+    && rm -rf /root/temporary
