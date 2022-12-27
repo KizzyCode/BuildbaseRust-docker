@@ -18,10 +18,11 @@ COPY files/config.toml /.cargo/config.toml
 # Update a temp crate using a tempfs for the cargo directory
 RUN mv /root/.cargo /root/.cargo-persistent
 RUN --mount=type=tmpfs,target=/root/.cargo \
-    cp -r /root/.cargo-persistent/* /root/.cargo/ \
+    cp -a /root/.cargo-persistent/. /root/.cargo \
     && /root/.cargo/bin/cargo new /root/temporary \
     && /root/.cargo/bin/cargo add --manifest-path=/root/temporary/Cargo.toml syn \
     && /root/.cargo/bin/cargo update --manifest-path=/root/temporary/Cargo.toml \
-    && cp -r /root/.cargo/* /root/.cargo-persistent/ \
+    && cp -a /root/.cargo/. /root/.cargo-persistent \
     && rm -rf /root/temporary
-RUN mv /root/.cargo-persistent /root/.cargo
+RUN rm -rf /root/.cargo \
+    && mv /root/.cargo-persistent /root/.cargo
